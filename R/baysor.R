@@ -162,7 +162,7 @@ baysor.run = function(
     
     ## run baysor in each tile
     cmds = purrr::map_chr(glue::glue('{output_dir}/g{1:ntiles}/'), function(outdir) {
-        as.character(glue::glue('{baysor_binpath} run --x-column x --y-column y --gene-column gene --scale={scale} --save-polygons=GeoJSON --min-molecules-per-cell={min_molecules_per_cell} {ncv_str} --prior-segmentation-confidence={prior_segmentation_confidence} --n-clusters={n_clusters}  -o {outdir} {outdir}/tx_baysor.csv :cell'))
+        as.character(glue::glue('{baysor_binpath} run --x-column x --y-column y --gene-column gene --scale={scale} --save-polygons=geojson --min-molecules-per-cell={min_molecules_per_cell} {ncv_str} --prior-segmentation-confidence={prior_segmentation_confidence} --n-clusters={n_clusters}  -o {outdir} {outdir}/tx_baysor.csv :cell'))
     }) 
     baysor_err = furrr::future_map_int(cmds, try_cmd, attempts_left=max_attempts)
     if (any(baysor_err == 1L)) {
